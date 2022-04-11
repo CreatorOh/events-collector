@@ -7,9 +7,10 @@ from collector_backend import event_log_helper, event
 
 #
 event_log_formatter = logging.Formatter('%(message)s')
-event_log_handler = logging.handlers.RotatingFileHandler('/tmp/collector.log',
-                                                         maxBytes=5 * 1024 * 1024,
-                                                         backupCount=10)
+event_log_handler = logging.handlers.TimedRotatingFileHandler('/tmp/collector.log',
+                                                              when='midnight',
+                                                              interval=1,
+                                                              backupCount=10)
 event_log_handler.setFormatter(event_log_formatter)
 event_logger = logging.getLogger('event_logger')
 event_logger.addHandler(event_log_handler)
